@@ -1,0 +1,99 @@
+Resources:
+  HelloWorldRunner:
+    Type: Attini::Deploy::Runner
+    Properties:
+      TaskDefinitionArn: !Ref RunnerTaskDefinition
+      RunnerConfiguration:
+        IdleTimeToLive: 121
+        JobTimeout: 120
+
+
+
+  HelloWorldDeploymentPlan:
+    Type: Attini::Deploy::DeploymentPlan # https://docs.attini.io/api-reference/deployment-plan.html
+    Properties:
+      DeploymentPlan:
+        StartAt: SamStrudle
+        States:
+          SamStrudle:
+            Type: AttiniSam
+            Properties:
+              Project:
+                Path: /zip-sam
+              StackName: SamStuffStack
+            Next: ParalellTasks
+          ParalellTasks:
+            Type: Parallel
+            End: True
+            Branches:
+              - StartAt: Step1b1
+                States:
+                  Step1b1:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo Never
+                        - echo gonna
+                        - echo give
+                    Next: Step2b1
+                  Step2b1:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo you
+                        - echo up
+                    Next: Step3b1
+                  Step3b1:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo Never
+                        - echo gonna
+                    Next: Step4b1
+                  Step4b1:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo let
+                        - echo you
+                        - echo down
+                    End: True
+              - StartAt: Step1b2
+                States:
+                  Step1b2:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo Never
+                        - echo gonna
+                    Next: Step2b2
+                  Step2b2:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo give
+                        - echo you
+                        - echo up
+                    Next: Step3b2
+                  Step3b2:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo Never
+                        - echo gonna
+                    Next: Step4b2
+                  Step4b2:
+                    Type: AttiniRunnerJob
+                    Properties:
+                      Runner: HelloWorldRunner
+                      Commands:
+                        - echo let
+                        - echo you
+                    End: True

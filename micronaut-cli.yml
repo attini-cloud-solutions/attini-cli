@@ -1,0 +1,6 @@
+applicationType: cli
+defaultPackage: se.attini.cli
+testFramework: junit
+sourceLanguage: java
+buildTool: maven
+features: [annotation-api, app-name, graalvm, java, junit, logback, maven, picocli, picocli-java-application, picocli-junit, readme, shade, yaml]
