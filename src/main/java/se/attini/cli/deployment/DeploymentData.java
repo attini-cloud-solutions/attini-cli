@@ -11,6 +11,7 @@ import se.attini.domain.DeploymentError;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class DeploymentData {
 
     private final String distributionName;

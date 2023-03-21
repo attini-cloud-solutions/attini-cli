@@ -35,10 +35,6 @@ public class DataEmitter {
         }
     }
 
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
-
     public void emitKeyValueSameLine(String key, String value, PrintUtil.Color color) {
         if (globalConfig.printAsJson()) {
             ObjectNode objectNode = objectMapper.createObjectNode();

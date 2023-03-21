@@ -57,13 +57,6 @@ public class FollowDeploymentRequest {
             return this;
         }
 
-        public Builder of(FollowDeploymentRequest followDeploymentRequest) {
-            this.environment = followDeploymentRequest.environment;
-            this.objectIdentifier = followDeploymentRequest.objectIdentifier;
-            this.distributionName = followDeploymentRequest.distributionName;
-            return this;
-        }
-
         public FollowDeploymentRequest build() {
             return new FollowDeploymentRequest(this);
         }

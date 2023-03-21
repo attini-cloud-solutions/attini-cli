@@ -7,6 +7,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class Context {
     public final String attiniVersion;
     public final String account;

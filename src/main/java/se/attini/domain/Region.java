@@ -30,10 +30,6 @@ public class Region {
         return name;
     }
 
-    public software.amazon.awssdk.regions.Region toAwsRegion(){
-        return software.amazon.awssdk.regions.Region.of(name);
-    }
-
     public static Region create(String name){
         return new Region(name);
     }

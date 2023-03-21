@@ -14,10 +14,6 @@ public class DeploymentPlanCount {
         return value;
     }
 
-    public static DeploymentPlanCount create(int value){
-        return new DeploymentPlanCount(value);
-    }
-
     public static DeploymentPlanCount create(String value){
         try {
             return new DeploymentPlanCount(Integer.parseInt(value));

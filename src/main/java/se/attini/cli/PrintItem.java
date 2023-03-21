@@ -46,9 +46,7 @@ public class PrintItem {
     public enum PrintType{
         SUCCESS,
         ERROR,
-        ERROR_DEBUG,
         NORMAL,
-        NORMAL_NO_TIMESTAMP,
         NORMAL_SAME_LINE,
         NEW_LINE
     }

@@ -1,5 +1,6 @@
 package se.attini.domain;
 
+@SuppressWarnings("unused")
 public enum LogLevel {
     ALL,
     TRACE,
