@@ -25,7 +25,7 @@ public class DistributionDataFacade {
                                                    DistributionName distributionName) {
 
         String s = environment.getName().getName() + "-" + distributionName.getName();
-        try( DynamoDbClient dynamoDbClient = awsClientFactory.dynamoClient();) {
+        try( DynamoDbClient dynamoDbClient = awsClientFactory.dynamoClient()) {
             Map<String, AttributeValue> item = dynamoDbClient
                     .getItem(GetItemRequest.builder().tableName(
                                                    "AttiniResourceStatesV1")

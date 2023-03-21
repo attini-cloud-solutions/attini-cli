@@ -38,7 +38,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import se.attini.InvalidCredentialsException;
-import se.attini.cli.ConsolePrinter;
 import se.attini.cli.PrintItem;
 import se.attini.cli.PrintUtil;
 import se.attini.cli.UserInputReader;
@@ -69,19 +68,17 @@ public class SetupAttiniService {
     private final UserInputReader inputReader;
     private final GuidedSetup guidedSetup;
     private final DataEmitter dataEmitter;
-    private final ConsolePrinter consolePrinter;
 
     public SetupAttiniService(AwsClientFactory awsClientFactory,
                               ProfileFacade profileFacade,
                               UserInputReader inputReader,
                               GuidedSetup guidedSetup,
-                              DataEmitter dataEmitter, ConsolePrinter consolePrinter) {
+                              DataEmitter dataEmitter) {
         this.awsClientFactory = requireNonNull(awsClientFactory, "awsClientFactory");
         this.profileFacade = requireNonNull(profileFacade, "profileFacade");
         this.inputReader = requireNonNull(inputReader, "inputReader");
         this.guidedSetup = requireNonNull(guidedSetup, "guidedSetup");
         this.dataEmitter = requireNonNull(dataEmitter, "dataEmitter");
-        this.consolePrinter = requireNonNull(consolePrinter, "consolePrinter");
     }
 
     public void setup(SetupAttiniRequest request,
@@ -120,7 +117,7 @@ public class SetupAttiniService {
                     if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("Yes")) {
                         parameters.add(toParameter(ACCEPT_LICENSE_AGREEMENT, true));
                     } else {
-                        consolePrinter.print(PrintItem.errorMessage("Aborted deployment"));
+                        dataEmitter.emitPrintItem(PrintItem.errorMessage("Aborted deployment"));
                         return;
                     }
                 }
@@ -135,7 +132,7 @@ public class SetupAttiniService {
                 if (follow) {
                     pollDeploymentPlanCloudFormation(cloudFormationClient, dataEmitter);
                 } else {
-                    consolePrinter.print(PrintItem.successMessage("The Attini stack has been deployed!"));
+                    dataEmitter.emitPrintItem(PrintItem.successMessage("The Attini stack has been deployed!"));
                 }
             }
     }
@@ -188,7 +185,7 @@ public class SetupAttiniService {
         if (!givenParameters.containsKey(INIT_DEPLOY_ARN) && !givenParameters.containsKey(
                 CREATE_INIT_DEPLOY_DEFAULT_ROLE)) {
             throw new IllegalArgumentException(
-                    "Either --create-init-deploy-default-role or --init-deploy-role-arn needs to be specified");
+                    "Either --create-init-deploy-default-role or --init-deploy-role-arn needs to be specified. Use the --guided option for a guided installation.");
         }
 
     }

@@ -19,7 +19,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import se.attini.cli.ConsolePrinter;
 import se.attini.cli.UserInputReader;
 import se.attini.cli.deployment.DataEmitter;
 import se.attini.client.AwsClientFactory;
@@ -57,14 +56,11 @@ class SetupAttiniServiceTest {
     @Mock
     DataEmitter dataEmitter;
 
-    @Mock
-    ConsolePrinter consolePrinter;
-
     SetupAttiniService setupAttiniService;
 
     @BeforeEach
     void setUp() {
-        setupAttiniService = new SetupAttiniService(awsClientFactory, profileFacade, userInputReader, new GuidedSetup(userInputReader), dataEmitter, consolePrinter);
+        setupAttiniService = new SetupAttiniService(awsClientFactory, profileFacade, userInputReader, new GuidedSetup(userInputReader), dataEmitter);
         when(awsClientFactory.cfnClient()).thenReturn(cloudFormationClient);
     }
 

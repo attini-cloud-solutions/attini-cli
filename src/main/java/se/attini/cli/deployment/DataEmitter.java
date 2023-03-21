@@ -22,7 +22,8 @@ public class DataEmitter {
 
 
     public DataEmitter(GlobalConfig globalConfig,
-                       ObjectMapper objectMapper, ConsolePrinter consolePrinter) {
+                       ObjectMapper objectMapper,
+                       ConsolePrinter consolePrinter) {
         this.globalConfig = requireNonNull(globalConfig, "globalConfig");
         this.objectMapper = requireNonNull(objectMapper, "objectMapper");
         this.consolePrinter = requireNonNull(consolePrinter, "consolePrinter");
@@ -61,8 +62,20 @@ public class DataEmitter {
         } else {
             consolePrinter.print(message(value));
         }
-
     }
+
+    public void emitPrintItem(PrintItem printItem) {
+        if (globalConfig.printAsJson()) {
+            ObjectNode objectNode = objectMapper.createObjectNode()
+                                                .put("timestamp", Instant.now().toEpochMilli())
+                                                .put("type", "string")
+                                                .put("data", printItem.getMessage().trim());
+            consolePrinter.print(message(objectNode.toString()));
+        } else {
+            consolePrinter.print(printItem);
+        }
+    }
+
 
     public void emitKeyValue(String key, String value) {
     emitKeyValue(key, value, PrintUtil.Color.DEFAULT);
