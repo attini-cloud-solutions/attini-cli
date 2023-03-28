@@ -9,6 +9,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class Metadata {
 
     private final Set<String> usedRunners;

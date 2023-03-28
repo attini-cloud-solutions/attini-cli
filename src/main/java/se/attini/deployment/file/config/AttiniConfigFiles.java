@@ -144,7 +144,7 @@ public class AttiniConfigFiles {
 
     /**
      * Will return an instance of AttiniConfigFile e if present in the provided zip archive.
-     * Will throw an exception if no file is present or more then one file is present
+     * Will throw an exception if no file is present, or more than one file is present
      *
      * @param file a zipped distribution
      * @return AttiniConfigFile

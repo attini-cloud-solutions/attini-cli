@@ -160,7 +160,7 @@ public class FollowDeploymentService {
 
             waitFor(3000);
             //TODO above wait is a temp workaround that is not very good.
-            //Things like throtelling could cause the template to take considerably longer.
+            //Things like throttling could cause the template to take considerably longer.
             //In order to handle this the deploy origin lambda will need to report the status
             //of the template deployment so that the CLI can react to it.
             StackStatus stackStatus = getStackStatusWithRetry(stackName, cloudFormationClient);

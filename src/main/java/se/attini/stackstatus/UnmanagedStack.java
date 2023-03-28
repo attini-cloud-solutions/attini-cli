@@ -6,6 +6,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class UnmanagedStack {
     private final String stackName;
     private final String region;

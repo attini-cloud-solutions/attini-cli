@@ -46,12 +46,6 @@ public class FindUnmanagedStackRequest implements ClientWithEnvironmentRequest {
             return this;
         }
 
-        public Builder of(FindUnmanagedStackRequest findUnmanagedStackRequest) {
-            this.environment = findUnmanagedStackRequest.environment;
-            this.distributionName = findUnmanagedStackRequest.distributionName;
-            return this;
-        }
-
         public FindUnmanagedStackRequest build() {
             return new FindUnmanagedStackRequest(this);
         }

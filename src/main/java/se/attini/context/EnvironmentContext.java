@@ -7,6 +7,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class EnvironmentContext {
     private final String environmentName;
     private final List<String> warnings;

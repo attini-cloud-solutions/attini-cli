@@ -9,6 +9,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class DistributionContext {
     private final String name;
     private final String distributionId;

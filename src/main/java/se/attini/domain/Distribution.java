@@ -64,12 +64,6 @@ public class Distribution {
             return this;
         }
 
-        public Builder of(Distribution distribution) {
-            this.distributionName = distribution.distributionName;
-            this.distributionId = distribution.distributionId;
-            return this;
-        }
-
         public Distribution build() {
             return new Distribution(this);
         }

@@ -10,7 +10,6 @@ import java.util.Optional;
 public class Deployment {
 
     private final Distribution distribution;
-    private final Region region;
     private final EnvironmentName environment;
     private final Instant deployTime;
     private final DeploymentError deploymentError;
@@ -32,7 +31,6 @@ public class Deployment {
 
     private Deployment(Builder builder) {
         this.distribution = builder.distribution;
-        this.region = builder.region;
         this.environment = builder.environment;
         this.deployTime = builder.deployTime;
         this.deploymentError = builder.deploymentError;
@@ -55,10 +53,6 @@ public class Deployment {
 
     public Distribution getDistribution() {
         return distribution;
-    }
-
-    public Optional<Region> getRegion() {
-        return Optional.ofNullable(region);
     }
 
     public Optional<DeploymentError> getDeploymentError() {
@@ -120,12 +114,10 @@ public class Deployment {
         Deployment that = (Deployment) o;
         return initStackUnchanged == that.initStackUnchanged && Objects.equals(distribution,
                                                                                that.distribution) && Objects.equals(
-                region,
-                that.region) && Objects.equals(environment, that.environment) && Objects.equals(
-                deployTime,
-                that.deployTime) && Objects.equals(deploymentError,
-                                                   that.deploymentError) && Objects.equals(stackName,
-                                                                                           that.stackName) && Objects.equals(
+                environment,
+                that.environment) && Objects.equals(deployTime, that.deployTime) && Objects.equals(
+                deploymentError,
+                that.deploymentError) && Objects.equals(stackName, that.stackName) && Objects.equals(
                 executionArn,
                 that.executionArn) && Objects.equals(deploymentPlanCount,
                                                      that.deploymentPlanCount) && Objects.equals(
@@ -142,7 +134,6 @@ public class Deployment {
     @Override
     public int hashCode() {
         return Objects.hash(distribution,
-                            region,
                             environment,
                             deployTime,
                             deploymentError,
@@ -162,7 +153,6 @@ public class Deployment {
     public String toString() {
         return "Deployment{" +
                "distribution=" + distribution +
-               ", region=" + region +
                ", environment=" + environment +
                ", deployTime=" + deployTime +
                ", deploymentError=" + deploymentError +
@@ -181,7 +171,6 @@ public class Deployment {
 
     public static class Builder {
         private Distribution distribution;
-        private Region region;
         private EnvironmentName environment;
         private Instant deployTime;
         private DeploymentError deploymentError;
@@ -224,12 +213,6 @@ public class Deployment {
             this.distribution = distribution;
             return this;
         }
-
-        public Builder setRegion(Region region) {
-            this.region = region;
-            return this;
-        }
-
         public Builder setEnvironment(EnvironmentName environment) {
             this.environment = environment;
             return this;

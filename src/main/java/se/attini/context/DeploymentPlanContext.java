@@ -5,6 +5,7 @@ import io.micronaut.core.annotation.ReflectiveAccess;
 
 @Introspected
 @ReflectiveAccess
+@SuppressWarnings("unused")
 public class DeploymentPlanContext {
     private final String name;
     private final String lastStatus;

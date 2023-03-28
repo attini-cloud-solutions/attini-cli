@@ -9,7 +9,7 @@ public class PathUtil {
      * Transform an absolut path to a relative path.
      * @param root The location from which the path should be relative to.
      * @param path The absolut path should be made relative
-     * @return A relative the from the given root.
+     * @return A relative path from the given root.
      */
     public static String transformPathToRelative(Path root, Path path) {
         if (path.isAbsolute()) {

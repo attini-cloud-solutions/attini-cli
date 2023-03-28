@@ -7,6 +7,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.List;
@@ -117,12 +118,19 @@ public class LifeCycleHooksService {
             giveExecuteAccess(file.toPath());
 
             runScriptFile(file, emitter);
-            if (!file.delete()) {
-                emitter.emitString("Could not delete script file");
-            }
+
+            deleteFile(file);
 
         } catch (IOException e) {
             throw new AttiniFileSystemException("Could not run commands", e);
+        }
+    }
+
+    private void deleteFile(File file){
+        try {
+            Files.delete(file.toPath());
+        } catch (IOException e) {
+            emitter.emitString("Could not delete script file, reason: " + e.getMessage());
         }
     }
 

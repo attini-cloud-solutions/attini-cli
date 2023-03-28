@@ -22,7 +22,7 @@ public class ConsolePrinter {
     public void print(PrintItem message) {
         switch (message.getPrintType()) {
             case ERROR -> System.err.println(PrintUtil.toRed(message.getMessage()));
-            case SUCCESS -> System.out.println(PrintUtil.toRed(message.getMessage()));
+            case SUCCESS -> System.out.println(PrintUtil.toGreen(message.getMessage()));
             case NORMAL_SAME_LINE -> System.out.print('\r' + message.getMessage() + " ".repeat(20));
             case NEW_LINE -> System.out.println();
             default -> System.out.println(message.getMessage());

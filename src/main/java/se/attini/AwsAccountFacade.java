@@ -27,7 +27,7 @@ public class AwsAccountFacade {
     public String getAccount() {
         return accountCache.computeIfAbsent(globalConfig.getProfile().orElse(Profile.create("default")),
                                             profile ->{
-                                                try(StsClient stsClient = awsClientFactory.stsClient();) {
+                                                try(StsClient stsClient = awsClientFactory.stsClient()) {
                                                     return stsClient.getCallerIdentity()
                                                             .account();
                                                 }

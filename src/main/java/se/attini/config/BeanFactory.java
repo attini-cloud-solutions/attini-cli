@@ -167,14 +167,12 @@ public class BeanFactory {
     public SetupAttiniService setupAttiniService(AwsClientFactory awsClientFactory,
                                                  ProfileFacade profileFacade,
                                                  UserInputReader userInputReader,
-                                                 DataEmitter dataEmitter,
-                                                 ConsolePrinter consolePrinter) {
+                                                 DataEmitter dataEmitter) {
         return new SetupAttiniService(awsClientFactory,
                                       profileFacade,
                                       userInputReader,
                                       new GuidedSetup(userInputReader),
-                                      dataEmitter,
-                                      consolePrinter);
+                                      dataEmitter);
     }
 
     @Singleton

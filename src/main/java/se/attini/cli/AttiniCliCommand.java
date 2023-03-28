@@ -60,7 +60,7 @@ public class AttiniCliCommand {
     public static class VersionProvider implements CommandLine.IVersionProvider {
         public final static int MAJOR = 2;
         public final static int MINOR = 5;
-        public final static int PATCH = 7;
+        public final static int PATCH = 8;
 
         public static final String VERSION_STRING = MAJOR + "." + MINOR + "." + PATCH;
 
