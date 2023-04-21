@@ -9,7 +9,9 @@ import se.attini.cli.AttiniCliCommand;
                      subcommands = {InitHelloWorldCommand.class,
                                     InitSkeletonCommand.class,
                                     InitSimpleWebsiteCommand.class,
-                                    InitSamProjectCommand.class},
+                                    InitSamProjectCommand.class,
+                                    InitCdkTypeScriptCommand.class,
+                                    InitCdkPythonCommand.class},
                      description = "Create different template projects.")
 public class InitProjectCommand {
 
