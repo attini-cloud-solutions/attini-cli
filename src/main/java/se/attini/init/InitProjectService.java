@@ -27,6 +27,14 @@ public class InitProjectService {
         initProject("init-project-hello-world");
     }
 
+    public static void initCdkPythons(){
+        initProject("init-project-cdk-python");
+    }
+
+    public static void initCdkTypeScript(){
+        initProject("init-project-cdk-typescript");
+    }
+
     public static void initSamProject(){
         initProject("sam-project");
     }

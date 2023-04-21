@@ -44,8 +44,11 @@ public class ProfileFacade {
             return Region.create(awsRegion);
         }
         try {
-            Process process = Runtime.getRuntime()
-                                     .exec("aws configure get region --profile " + profile.getProfileName());
+            Process process = new ProcessBuilder()
+                    .command(List.of(environmentVariables.getShell(),
+                                     "-c",
+                                     "export AWS_CLI_AUTO_PROMPT=off && aws configure get region --profile " + profile.getProfileName()))
+                    .start();
             String region = new BufferedReader(new InputStreamReader(process.getInputStream())).readLine();
             if (region == null) {
                 throw new IllegalArgumentException("No region is configured for profile =" + profile.getProfileName());
@@ -63,7 +66,11 @@ public class ProfileFacade {
             return Region.create(awsRegion);
         }
         try {
-            Process process = Runtime.getRuntime().exec("aws configure get region");
+            Process process = new ProcessBuilder()
+                    .command(List.of(environmentVariables.getShell(),
+                                     "-c",
+                                     "export AWS_CLI_AUTO_PROMPT=off && aws configure get region"))
+                    .start();
             String region = new BufferedReader(new InputStreamReader(process.getInputStream())).readLine();
             if (region == null) {
                 throw new IllegalArgumentException("No default region is configured");
@@ -77,7 +84,7 @@ public class ProfileFacade {
 
     public Region getRegion() {
 
-       return regionCache.computeIfAbsent(globalConfig.getProfile().orElse(Profile.create("Default")), profile -> {
+        return regionCache.computeIfAbsent(globalConfig.getProfile().orElse(Profile.create("Default")), profile -> {
             if (globalConfig.getRegion().isPresent()) {
                 return globalConfig.getRegion().get();
             }
