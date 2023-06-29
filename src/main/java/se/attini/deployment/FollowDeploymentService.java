@@ -32,6 +32,7 @@ import se.attini.domain.Deployment;
 import se.attini.domain.DeploymentError;
 import se.attini.domain.DeploymentPlanStatus;
 import se.attini.domain.DeploymentPlanStepStatus;
+import se.attini.domain.DeploymentType;
 import se.attini.domain.ExecutionArn;
 import se.attini.domain.InitStackError;
 import se.attini.domain.Region;
@@ -111,13 +112,14 @@ public class FollowDeploymentService {
             }
             throw new IllegalStateException(deploymentError.getErrorMessage());
         }
+
         if (deployment.getStackName().isPresent()) {
-            if (!deployment.isInitStackUnchanged()) {
+            if (deployment.getDeploymentType() == DeploymentType.PLATFORM && !deployment.isInitStackUnchanged()) {
                 dataEmitter.emitString("Deploying init stack");
                 pollDeploymentPlanCloudFormation(deployment.getStackName().get(),
                                                  dataEmitter,
                                                  getDeploymentRequest);
-            } else {
+            } else if(deployment.getDeploymentType() == DeploymentType.PLATFORM) {
                 dataEmitter.emitString("No changes to init stack");
             }
 

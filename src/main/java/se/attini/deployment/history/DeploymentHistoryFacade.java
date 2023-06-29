@@ -17,6 +17,7 @@ import se.attini.domain.Deployment;
 import se.attini.domain.DeploymentError;
 import se.attini.domain.DeploymentPlanCount;
 import se.attini.domain.DeploymentPlanStepError;
+import se.attini.domain.DeploymentType;
 import se.attini.domain.Distribution;
 import se.attini.domain.DistributionId;
 import se.attini.domain.DistributionName;
@@ -45,6 +46,9 @@ public class DeploymentHistoryFacade {
     public static final String ERROR_CODE_FIELD = "errorCode";
     public static final String ERROR_MESSAGE_FIELD = "errorMessage";
     public static final String STACK_NAME_FIELD = "stackName";
+
+    public static final String DEPLOYMENT_TYPE_FIELD = "deploymentType";
+
     public static final String EXECUTION_ARNS_FIELD = "executionArns";
     public static final String DEPLOYMENT_PLAN_COUNT_FIELD = "deploymentPlanCount";
     public static final String INIT_STACK_ERRORS = "initStackErrors";
@@ -197,6 +201,12 @@ public class DeploymentHistoryFacade {
 
         if (item.get(STACK_NAME_FIELD) != null) {
             builder.setStackName(StackName.create(item.get(STACK_NAME_FIELD).s()));
+        }
+
+        if (item.get(DEPLOYMENT_TYPE_FIELD) != null) {
+            builder.setDeploymentType(item.get(DEPLOYMENT_TYPE_FIELD)
+                                          .s()
+                                          .equals("app") ? DeploymentType.APP : DeploymentType.PLATFORM);
         }
 
         if (item.get(INIT_STACK_ERRORS) != null) {
