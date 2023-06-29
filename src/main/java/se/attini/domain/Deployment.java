@@ -28,6 +28,8 @@ public class Deployment {
 
     private final String version;
 
+    private final DeploymentType deploymentType;
+
 
     private Deployment(Builder builder) {
         this.distribution = builder.distribution;
@@ -44,6 +46,7 @@ public class Deployment {
         this.deploymentPlanStatus = builder.deploymentPlanStatus;
         this.attiniSteps = builder.attiniSteps;
         this.version =builder.version;
+        this.deploymentType = builder.deploymentType == null ? DeploymentType.PLATFORM : builder.deploymentType;
     }
 
     public static Builder builder() {
@@ -105,6 +108,10 @@ public class Deployment {
 
     public Optional<String> getVersion() {
         return Optional.ofNullable(version);
+    }
+
+    public DeploymentType getDeploymentType() {
+        return deploymentType;
     }
 
     @Override
@@ -189,6 +196,8 @@ public class Deployment {
 
         private String version;
 
+        private DeploymentType deploymentType;
+
 
 
         private Builder() {
@@ -261,6 +270,11 @@ public class Deployment {
 
         public Builder setVersion(String version) {
             this.version = version;
+            return this;
+        }
+
+        public Builder setDeploymentType(DeploymentType deploymentType) {
+            this.deploymentType = deploymentType;
             return this;
         }
 

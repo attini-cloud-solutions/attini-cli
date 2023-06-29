@@ -11,23 +11,18 @@
     <parent>
         <groupId>io.micronaut</groupId>
         <artifactId>micronaut-parent</artifactId>
-        <version>3.8.0</version>
+        <version>3.9.0</version>
     </parent>
 
     <properties>
         <packaging>jar</packaging>
         <jdk.version>17</jdk.version>
         <release.version>17</release.version>
-        <micronaut.version>3.8.0</micronaut.version>
+        <micronaut.version>3.9.0</micronaut.version>
         <exec.mainClass>se.attini.cli.AttiniCliCommand</exec.mainClass>
     </properties>
 
     <dependencies>
-            <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>jcl-over-slf4j</artifactId>
-              <version>1.7.36</version>
-            </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -246,7 +241,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
-            <version>2.14.2</version>
+            <version>2.15.0</version>
         </dependency>
         <dependency>
             <groupId>io.micronaut.picocli</groupId>
@@ -300,106 +295,93 @@
         <profile>
             <id>gen-docs</id>
             <build>
-               <plugins>
-                   <plugin>
-                       <groupId>org.apache.maven.plugins</groupId>
-                       <artifactId>maven-compiler-plugin</artifactId>
-                       <configuration>
-                           <!-- Uncomment to enable incremental compilation -->
-                           <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
-                           <annotationProcessorPaths combine.children="append">
-                               <path>
-                                   <groupId>info.picocli</groupId>
-                                   <artifactId>picocli-codegen</artifactId>
-                                   <version>${picocli.version}</version>
-                               </path>
-                           </annotationProcessorPaths>
-                           <compilerArgs>
-                               <arg>-Amicronaut.processing.group=se.attini.cli</arg>
-                               <arg>-Amicronaut.processing.module=attini-cli</arg>
-                           </compilerArgs>
-                       </configuration>
-                   </plugin>
-                   <plugin>
-                       <groupId>org.graalvm.buildtools</groupId>
-                       <artifactId>native-maven-plugin</artifactId>
-                       <configuration>
-                           <imageName>attini</imageName>
-                       </configuration>
-                   </plugin>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <!-- Uncomment to enable incremental compilation -->
+                            <!-- <useIncrementalCompilation>false</useIncrementalCompilation> -->
+                            <annotationProcessorPaths combine.children="append">
+                                <path>
+                                    <groupId>info.picocli</groupId>
+                                    <artifactId>picocli-codegen</artifactId>
+                                    <version>${picocli.version}</version>
+                                </path>
+                            </annotationProcessorPaths>
+                            <compilerArgs>
+                                <arg>-Amicronaut.processing.group=se.attini.cli</arg>
+                                <arg>-Amicronaut.processing.module=attini-cli</arg>
+                            </compilerArgs>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.graalvm.buildtools</groupId>
+                        <artifactId>native-maven-plugin</artifactId>
+                        <configuration>
+                            <imageName>attini</imageName>
+                        </configuration>
+                    </plugin>
 
 
-                   <plugin>
-                       <groupId>org.codehaus.mojo</groupId>
-                       <artifactId>exec-maven-plugin</artifactId>
-                       <version>3.0.0</version>
-                       <executions>
-                           <execution>
-                               <id>generateManPages</id>
-                               <phase>process-classes</phase>
-                               <goals>
-                                   <goal>java</goal>
-                               </goals>
-                           </execution>
-                       </executions>
-                       <configuration combine.self="override">
-                           <includeProjectDependencies>true</includeProjectDependencies>
-                           <includePluginDependencies>true</includePluginDependencies>
-                           <mainClass>picocli.codegen.docgen.manpage.ManPageGenerator</mainClass>
-                           <arguments>
-                               <argument>--outdir=${project.build.directory}/generated-attini-docs</argument>
-                               <argument>--factory=io.micronaut.configuration.picocli.MicronautFactory </argument>
-                               <argument>se.attini.cli.AttiniCliCommand</argument>
-                           </arguments>
-                       </configuration>
-                       <dependencies>
-                           <dependency>
-                               <groupId>info.picocli</groupId>
-                               <artifactId>picocli-codegen</artifactId>
-                               <version>4.6.3</version>
-                               <type>jar</type>
-                           </dependency>
-                       </dependencies>
-                   </plugin>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <version>3.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>generateManPages</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration combine.self="override">
+                            <includeProjectDependencies>true</includeProjectDependencies>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <mainClass>picocli.codegen.docgen.manpage.ManPageGenerator</mainClass>
+                            <arguments>
+                                <argument>--outdir=${project.build.directory}/generated-attini-docs</argument>
+                                <argument>--factory=io.micronaut.configuration.picocli.MicronautFactory</argument>
+                                <argument>se.attini.cli.AttiniCliCommand</argument>
+                            </arguments>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>info.picocli</groupId>
+                                <artifactId>picocli-codegen</artifactId>
+                                <version>4.6.3</version>
+                                <type>jar</type>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
 
-                   <plugin>
-                       <groupId>org.asciidoctor</groupId>
-                       <artifactId>asciidoctor-maven-plugin</artifactId>
-                       <version>2.1.0</version>
-                       <executions>
-                           <execution>
-                               <id>output-html</id>
-                               <phase>process-classes</phase>
-                               <goals>
-                                   <goal>process-asciidoc</goal>
-                               </goals>
-                               <configuration>
-                                   <attributes>
-                                       <source-highlighter>coderay</source-highlighter>
-                                       <stylesheet>${project.basedir}/src/doc-style/attini-style.css</stylesheet>
-                                   </attributes>
-                                   <backend>html5</backend>
-                               </configuration>
-                           </execution>
-<!--                           <execution>-->
-<!--                               <id>output-manpage</id>-->
-<!--                               <phase>process-classes</phase>-->
-<!--                               <goals>-->
-<!--                                   <goal>process-asciidoc</goal>-->
-<!--                               </goals>-->
-<!--                               <configuration>-->
-<!--                                   <attributes>-->
-<!--                                       <source-highlighter>coderay</source-highlighter>-->
-<!--                                   </attributes>-->
-<!--                                   <backend>manpage</backend>-->
-<!--                               </configuration>-->
-<!--                           </execution>-->
-                       </executions>
-                       <configuration>
-                           <sourceDirectory>${project.build.directory}/generated-attini-docs</sourceDirectory>
-                       </configuration>
-                   </plugin>
-               </plugins>
+                    <plugin>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctor-maven-plugin</artifactId>
+                        <version>2.1.0</version>
+                        <executions>
+                            <execution>
+                                <id>output-html</id>
+                                <phase>process-classes</phase>
+                                <goals>
+                                    <goal>process-asciidoc</goal>
+                                </goals>
+                                <configuration>
+                                    <attributes>
+                                        <source-highlighter>coderay</source-highlighter>
+                                        <stylesheet>${project.basedir}/src/doc-style/attini-style.css</stylesheet>
+                                    </attributes>
+                                    <backend>html5</backend>
+                                </configuration>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <sourceDirectory>${project.build.directory}/generated-attini-docs</sourceDirectory>
+                        </configuration>
+                    </plugin>
+                </plugins>
             </build>
         </profile>
     </profiles>

@@ -35,7 +35,8 @@ public class StepLoggerFactory {
 
     public StepLogger getLogger(GetLoggerRequest getLoggerRequest,
                                 String stepName) {
-        if ("AttiniRunnerJob".equals(getLoggerRequest.type()) || "AttiniCdk".equals(getLoggerRequest.type())) {
+        if ("AttiniRunnerJob".equals(getLoggerRequest.type()) || "AttiniCdk".equals(getLoggerRequest.type()) || "AttiniPackageSam".equals(
+                getLoggerRequest.type())) {
             Region givenRegion = profileFacade.getRegion();
             String account = awsAccountFacade.getAccount();
             return new AttiniRunnerLogger(awsClientFactory.s3Client(),
